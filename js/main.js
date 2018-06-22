@@ -33,7 +33,7 @@ window.onload = function() {
     for (i = 0; i < aKLi.length; i++) {
         aKLi[i].onmousedown = function() {
             var oPP = new Audio();
-            if (this.getAttribute('n') != '') {
+            if (this.getAttribute('n') != ""){
                 oPP.src = audioM + this.getAttribute('n').substring(1) + '.wav';
             } else {
                 return;
@@ -45,7 +45,7 @@ window.onload = function() {
     function keyBug(ev) {
         var ckyCode = window.event ? ev.keyCode : ev.which;
         
-    	oPP = document.createElement('audio');
+    	var oPP = new Audio();
 		oPP.src = audioM + data[ckyCode] + '.wav';
 		oPP.play();
 	
@@ -59,7 +59,7 @@ window.onload = function() {
     function keyOne(ev) {
         var ckyCode = window.event ? ev.keyCode : ev.which;
         if (!is_down) {
-        	oPP = document.createElement('audio');
+        	var oPP = new Audio();
 			oPP.src = audioM + data[ckyCode] + '.wav';
 			oPP.play();
 		
@@ -75,16 +75,22 @@ window.onload = function() {
     var is_down = false;
     document.onkeydown = function(ev) {
         var ckyCode = window.event ? ev.keyCode : ev.which;
-        
-    	oPP = document.createElement('audio');
-		oPP.src = audioM + data[ckyCode] + '.wav';
-		oPP.play();
+        var i = 0;
 	
 		if(144) {ev.preventDefault};
 		document.title = ckyCode +',' + data[ckyCode];
 
-		if ( ckyCode == 27 || ckyCode == 192 || ckyCode == 9 ) { return ;}
+		for (i = 0; i < dataSys.length; i ++){
+            if (dataSys[i] == ckyCode){
+                return
+            }
+        }
+
 		aKLi[dataBg[ckyCode]].style.background = '#09f';
+
+        var oPP = new Audio();
+        oPP.src = audioM + data[ckyCode] + '.wav';
+        oPP.play();
 
         if (ev.ctrlKey && ckyCode == 82){
             window.loaction.reload(true);
@@ -110,32 +116,6 @@ window.onload = function() {
     }
     
     var data = {
-        '系':'',
-        '27': '0',
-        '192': '0',
-        '9': '0',
-        '20': '0',
-        '16': '0',
-        '17': '0',
-        '91': '0',
-        '18': '0',
-        '92': '0',
-        '93': '0',
-        '8': '0',
-        '112': '0',
-        '113': '0',
-        '114': '0',
-        '115': '0',
-        '116': '0',
-        '117': '0',
-        '118': '0',
-        '119': '0',
-        '120': '0',
-        '121': '0',
-        '122': '0',
-        '123': '0',
-        '145': '0',
-        '19': '0',
         '主': '1排',
         '49': '1g',
         '50': '2g',
@@ -218,6 +198,33 @@ window.onload = function() {
         '96': '5d',
         '110': '6d'
     }
+    var dataSys = [
+        27,
+        192,
+        9,
+        20,
+        16,
+        17,
+        91,
+        18,
+        92,
+        93,
+        8,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        145,
+        19,
+    ]
     var dataBg = {
         '系':'',
         '27': '-1',
