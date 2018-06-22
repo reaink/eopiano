@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    text-align: center;
+}
+#pianos {
+    padding: 10px;
+    border: 1px solid #000;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;
+}
+#pianos header {
+    text-align: left
+}
+#pianos header .title {
+    font-weight: 300
+}
+#pianos li,#pianos .center li,#pianos .right li {
+    list-style: none;
+    display: inline-block;
+    box-shadow: 0 2px 5px #000;
+    width: 25px;
+    margin: 3px;
+    padding: 5px;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 14px;
+}
+#pianos li:active {
+    background: #09f;
+}
+#pianos .left {
+    width: 680px;
+    float: left;
+}
+#pianos .center {
+    width: 140px;
+    float: left;
+    margin: 0 15px;
+}
+#pianos .center .top {
+    width: 140px;
+}
+#pianos .center .bottom {
+    margin-top: 35px;
+}
+#pianos .center .bottom li:first-of-type {
+    margin: 3px 49px;
+}
+#pianos .right {
+    margin-top: 35px;
+    float: left;
+}
+#pianos .right ul:first-of-type {
+    width: 150px;
+    position: absolute;
+}
+#pianos .right ul.fj {
+    margin-left: 138px;
+}
+#pianos .right ul.fj li {
+    display: block;
+    line-height: 57px;
+    margin-bottom: 5px;
+}
+#pianos .right ul.fj li:first-of-type {
+    line-height: 20px;
+}
+
+#pianos .hideKey {
+    background: #999 !important;
+}
+
+#pianos .hideKey:hover {
+    cursor: not-allowed;
+}
+
+@keyframes hiddenToHidden {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.2;
+    }
+}
+
+.hidden {
+    opacity: 0.2;
+    transition: all 0.5s;
+    animation: hiddenToHidden 1s ease-out;
+}
+
+.hidden:hover {
+    opacity: 1;
+    transition: all 0.5s;
+}
