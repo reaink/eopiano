@@ -10,14 +10,29 @@ window.onload = function() {
     var oKbug = document.getElementById('kBug');
     var K = 1;
     var i = 0;
+    var oSuccessAudio = 0;
+
+    var xhr = new XMLHttpRequest();
+
+    function load(url) {
+        xhr.open("GET", url);
+        xhr.responseType = "arraybuffer";
+        xhr.onload = function () {
+            console.log(xhr.response);
+        }
+        xhr.send();
+    }
 
     var audioM = 'pianoaudio/';
     var oPP = null;
+    for (i = 0; i < data; i++) {
+        load(audioM + data[i] + '.wav');
+        console.log(audioM + data[i] + '.wav')
+    }
 
     for (i = 0; i < aKLi.length; i++) {
         aKLi[i].onmousedown = function() {
-            oPP = document.createElement('audio');
-            oPP.setAttribute('preload', 'load');
+            var oPP = new Audio();
             if (this.getAttribute('n') != '') {
                 oPP.src = audioM + this.getAttribute('n').substring(1) + '.wav';
             } else {
@@ -202,7 +217,7 @@ window.onload = function() {
         '13': '7d',
         '96': '5d',
         '110': '6d'
-    };
+    }
     var dataBg = {
         '系':'',
         '27': '-1',
@@ -309,6 +324,5 @@ window.onload = function() {
         '109': '101',
         '107': '102',
         '13': '103'
-    };
-    
-};
+    }
+}
