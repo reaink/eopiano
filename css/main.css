@@ -5,6 +5,17 @@
 body {
     text-align: center;
 }
+
+#pianos ul{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+#pianos .fj{
+    display: flex;
+    flex-direction: column;
+}
 #pianos {
     padding: 10px;
     border: 1px solid #000;
@@ -24,7 +35,6 @@ body {
 }
 #pianos li,#pianos .center li,#pianos .right li {
     list-style: none;
-    display: inline-block;
     box-shadow: 0 2px 5px #000;
     width: 25px;
     margin: 3px;
@@ -63,7 +73,7 @@ body {
     position: absolute;
 }
 #pianos .right ul.fj {
-    margin-left: 138px;
+    margin-left: 152px;
 }
 #pianos .right ul.fj li {
     display: block;
