@@ -2,94 +2,186 @@
     margin: 0;
     padding: 0;
 }
+
 body {
     text-align: center;
 }
 
-#pianos ul{
+#pianos ul {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
-#pianos .fj{
+#pianos .fj {
     display: flex;
     flex-direction: column;
 }
-#pianos {
-    padding: 10px;
-    border: 1px solid #000;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    position: relative;
-    display: inline-block;
-    margin: 0 auto;
-}
+
 #pianos header {
     text-align: left
 }
+
 #pianos header .title {
     font-weight: 300
 }
-#pianos li,#pianos .center li,#pianos .right li {
+
+#pianos li,
+#pianos .center li,
+#pianos .right li {
     list-style: none;
-    box-shadow: 0 2px 5px #000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
     width: 25px;
     margin: 3px;
     padding: 5px;
     border-radius: 3px;
     text-align: center;
     font-size: 14px;
+    transition: all .3s ease-in-out;
 }
-#pianos li:active {
-    background: #09f;
-}
+
 #pianos .left {
-    width: 680px;
-    float: left;
+    grid-area: left;
 }
+
 #pianos .center {
     width: 140px;
-    float: left;
+    grid-area: center;
     margin: 0 15px;
 }
+
 #pianos .center .top {
     width: 140px;
 }
-#pianos .center .bottom {
-    margin-top: 35px;
-}
-#pianos .center .bottom li:first-of-type {
-    margin: 3px 49px;
-}
-#pianos .right {
-    margin-top: 35px;
-    float: left;
-}
-#pianos .right ul:first-of-type {
-    width: 150px;
-    position: absolute;
-}
-#pianos .right ul.fj {
-    margin-left: 152px;
-}
-#pianos .right ul.fj li {
-    display: block;
-    line-height: 57px;
-    margin-bottom: 5px;
-}
-#pianos .right ul.fj li:first-of-type {
-    line-height: 20px;
+
+#pianos .center .bottom .center-bottom-top {
+    margin: 0 auto;
+    grid-area: center-bottom-top;
 }
 
-#pianos .hideKey {
+#pianos .center .bottom .center-bottom-left {
+    grid-area: center-bottom-left;
+}
+
+#pianos .center .bottom .center-bottom-bottom {
+    grid-area: center-bottom-bottom;
+}
+
+#pianos .center .bottom .center-bottom-right {
+    grid-area: center-bottom-right;
+}
+
+#pianos .center .bottom {
+    margin-top: 35px;
+    display: grid;
+    grid-template-areas: 'center-bottom-top center-bottom-top center-bottom-top' 'center-bottom-left center-bottom-bottom center-bottom-right';
+    grid-gap: 5px;
+}
+
+#pianos .right {
+    margin-top: 35px;
+    grid-area: right;
+}
+
+#pianos .right-items .k4g {
+    grid-area: k4g;
+}
+
+#pianos .right-items .k5g {
+    grid-area: k5g;
+}
+
+#pianos .right-items .k6g {
+    grid-area: k6g;
+}
+
+#pianos .right-items .k7g {
+    grid-area: k7g;
+}
+
+#pianos .right-items .k7 {
+    grid-area: k7;
+}
+
+#pianos .right-items .k1g {
+    grid-area: k1g;
+}
+
+#pianos .right-items .k2g {
+    grid-area: k2g;
+}
+
+#pianos .right-items .k4 {
+    grid-area: k4;
+}
+
+#pianos .right-items .k5 {
+    grid-area: k5;
+}
+
+#pianos .right-items .k6 {
+    grid-area: k6;
+}
+
+#pianos .right-items .k1 {
+    grid-area: k1;
+}
+
+#pianos .right-items .k2 {
+    grid-area: k2;
+}
+
+#pianos .right-items .k3 {
+    grid-area: k3;
+}
+
+#pianos .right-items .k5d {
+    grid-area: k5d;
+    width: auto;
+}
+
+#pianos .right-items .k6d {
+    grid-area: k6d;
+}
+
+#pianos .right-items .k3g {
+    grid-area: k3g;
+}
+
+#pianos .right-items .k7d {
+    grid-area: k7d;
+}
+
+#pianos .right .right-items {
+    display: grid;
+    grid-template-areas: 'k4g k5g k6g k7g' 'k7 k1g k2g k3g' 'k4 k5 k6 k3g' 'k1 k2 k3 k7d' 'k5d k5d k6d k7d';
+}
+
+#pianos li:active {
+    background-color: #09f !important;
+    transition: all .3s ease-in-out;
+}
+
+#pianos li.hideKey {
     background: #999 !important;
 }
 
-#pianos .hideKey:hover {
+#pianos li.hideKey:hover {
     cursor: not-allowed;
+}
+
+#pianos {
+    width: 1005px;
+    padding: 10px;
+    border: 1px solid #000;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 30px auto;
+    display: grid;
+    grid-template-areas: 'header header header header header header' 'left left left center center right';
+    grid-gap: 10px;
 }
 
 @keyframes hiddenToHidden {
