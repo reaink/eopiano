@@ -228,7 +228,7 @@ function EOPieno() {
         this.audio = document.createElement('audio');
         this.audio.id = 'piano-audio';
         this.audio.setAttribute('controls', 'controls');
-        this.audio.setAttribute('preload', '');
+        this.audio.setAttribute('preload', 'auto');
         this.audio.innerHTML = '您的浏览器不支持音频功能';
         !isPlay && this.audio.load();
         this.audio.src = url;
@@ -237,17 +237,14 @@ function EOPieno() {
         oAudioName.innerText = url;
 
         if (!isPlay) {
-            
-
-            var _this = this;
             this.audio.onloadedmetadata = function () {
-                var __this = this;
+                var _this = this;
                 function isClone () {
-                    console.log(__this.buffered.end(0), __this.duration);
-                    if (__this.buffered.end(0) === __this.duration) {
+                    console.log(_this.buffered.end(0), _this.duration);
+                    if (_this.buffered.end(0) === _this.duration) {
                         oPre.innerText++;
                     } else {
-                        setTimeout(isClone, 1000);
+                        setTimeout(isClone, 50);
                     }
                 }
                 isClone();
