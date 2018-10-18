@@ -247,7 +247,7 @@ function EOPieno() {
                     if (__this.buffered.end(0) === __this.duration) {
                         oPre.innerText++;
                     } else {
-                        setTimeout(isClone, 500);
+                        setTimeout(isClone, 1000);
                     }
                 }
                 isClone();
