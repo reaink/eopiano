@@ -1,5 +1,4 @@
 var data = {
-    '主': '1排',
     '49': '1g',
     '50': '2g',
     '51': '3g',
@@ -12,7 +11,6 @@ var data = {
     '48': '3bg',
     '189': '4bg',
     '187': '5bg',
-    '主': '2排',
     '81': '1',
     '87': '2',
     '69': '3',
@@ -26,7 +24,6 @@ var data = {
     '219': '4g',
     '221': '5g',
     '220': '6g',
-    '主': '3排',
     '65': '1d',
     '83': '2d',
     '68': '3d',
@@ -38,7 +35,6 @@ var data = {
     '76': '2',
     '186': '3',
     '222': '4',
-    '主': '4排',
     '90': '1bd',
     '88': '2bd',
     '67': '3bd',
@@ -49,7 +45,6 @@ var data = {
     '188': '1d',
     '190': '2d',
     '191': '3d',
-    '控': '顶',
     '45': '4bg',
     '36': '5bg',
     '33': '6bg',
@@ -60,7 +55,6 @@ var data = {
     '37': '2bd',
     '40': '3bd',
     '39': '4bd',
-    '右': '锁',
     '144': '4g',
     '111': '5g',
     '106': '6g',
@@ -220,39 +214,61 @@ function EOPieno() {
     var oPianos = document.getElementById('pianos');
     var aKLi = oPianos.getElementsByTagName('li');
     var oKbug = document.getElementById('kBug');
+    var oPre = document.getElementById('pre');
+    var oPreAll = document.getElementById('pre-all');
+    var oVol = document.getElementById('vol');
+    var oCache = document.getElementById('cache');
     var i = 0;
+    var a = new Audio();
 
     var xhr = new XMLHttpRequest();
 
+    oPreAll.innerText = Object.keys(data).length;
+
     function load(url) {
-        xhr.open("GET", url);
-        xhr.responseType = "arraybuffer";
-        xhr.onload = function () {
-            if(this.status == 200 || this.status == 304){
-                console.log(this.responseText);
-            }
-        }
-        xhr.send();
+        var a = new Audio();
+        a.src = url;
+        a.load();
+        oPre.innerText++;
     }
+
+    function play(url) {
+        var a = new Audio();
+        a.src = url;
+        a.play();
+    }
+
+    (function() {
+        oVol.value = a.volume;
+        oVol.step = 0.1;
+        oVol.onchange = function () {
+            a.volume = +this.value;
+        }
+    })(oVol, a);
 
     var i;
     var audioM = 'pianoaudio/';
-    for (i of Object.values(data)) {
-        // console.log(i)
-        // console.log(audioM + i + '.wav')
-        load(audioM + i + '.wav');
-        // console.log(audioM + i + '.wav')
+    if (/http/.exec(window.location.href)) {
+        for (i of Object.values(data)) {
+            load(audioM + i + '.wav');
+        }
+        if ((oPre.innerText === oPreAll.innerText) !== 0) {
+            oCache.innerText = '缓存完毕';
+            setTimeout(function () {
+                oCache.style.display = 'none';
+            }, 1000)
+        }
+    } else {
+        console.log('本地项目，跳过XMLHttpRequest缓存');
     }
 
     for (i = 0; i < aKLi.length; i++) {
         aKLi[i].onmousedown = function () {
-            var oPP = new Audio();
             if (this.getAttribute('n') != "") {
-                oPP.src = audioM + this.getAttribute('n').substring(1) + '.wav';
+                play(audioM + this.getAttribute('n').substring(1) + '.wav')
             } else {
                 return;
             }
-            oPP.play();
         }
     }
 
