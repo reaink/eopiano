@@ -237,9 +237,15 @@ function EOPieno() {
     }
 
     function play(url) {
-        oPianoAudio.src = url;
+        var oPianoAudio = document.getElementById('piano-audio');
+        this.audio = document.createElement('audio');
+        this.audio.innerHTML = '您的浏览器不支持音频功能';
+        this.audio.src = url;
+        this.audio.id = 'piano-audio';
+        this.audio.setAttribute('controls', 'controls');
+        oPianoAudio.parentNode.replaceChild(this.audio, oPianoAudio)
         oAudioName.innerText = url;
-        oPianoAudio.play();
+        this.audio.play();
     }
 
     (function() {
@@ -255,7 +261,7 @@ function EOPieno() {
     if (/http/.exec(window.location.href)) {
         for (i of Object.values(data)) {
             oPianoAudio.muted = true;
-            load(audioM + i + '.wav');
+            new load(audioM + i + '.wav');
         }
         if (oPreAll.innerText !== 0 && oPre.innerText === oPreAll.innerText) {
             oVol.value = oPianoAudio.volume = 1;
