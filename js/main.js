@@ -1,127 +1,3 @@
-function EOPieno() {
-    var oPianos = document.getElementById('pianos');
-    var aKLi = oPianos.getElementsByTagName('li');
-    var oKbug = document.getElementById('kBug');
-    var i = 0;
-
-    var xhr = new XMLHttpRequest();
-
-    function load(url) {
-        xhr.open("GET", url);
-        xhr.responseType = "arraybuffer";
-        xhr.onload = function () {
-            console.log(xhr.response);
-        }
-        xhr.send();
-    }
-
-    var audioM = 'pianoaudio/';
-    for (i = 0; i < data; i++) {
-        load(audioM + data[i] + '.wav');
-        console.log(audioM + data[i] + '.wav')
-    }
-
-    for (i = 0; i < aKLi.length; i++) {
-        aKLi[i].onmousedown = function () {
-            var oPP = new Audio();
-            if (this.getAttribute('n') != "") {
-                oPP.src = audioM + this.getAttribute('n').substring(1) + '.wav';
-            } else {
-                return;
-            }
-            oPP.play();
-        }
-    }
-
-    function keyBug(ev) {
-        var ckyCode = window.event ? ev.keyCode : ev.which;
-
-        var oPP = new Audio();
-        oPP.src = audioM + data[ckyCode] + '.wav';
-        oPP.play();
-
-        if (144) {
-            ev.preventDefault
-        };
-        document.title = ckyCode + ',' + data[ckyCode];
-
-        if (ckyCode == 27 || ckyCode == 192 || ckyCode == 9) {
-            return;
-        }
-        aKLi[dataBg[ckyCode]].style.background = '#09f';
-    }
-
-    function keyOne(ev) {
-        var ckyCode = window.event ? ev.keyCode : ev.which;
-        if (!is_down) {
-            var oPP = new Audio();
-            oPP.src = audioM + data[ckyCode] + '.wav';
-            oPP.play();
-
-            if (144) {
-                ev.preventDefault
-            };
-            document.title = ckyCode + ',' + data[ckyCode];
-
-            if (ckyCode == 27 || ckyCode == 192 || ckyCode == 9) {
-                return;
-            }
-            aKLi[dataBg[ckyCode]].style.background = '#09f';
-        }
-        is_down = true;
-    }
-
-    var is_down = false;
-    document.onkeydown = function (ev) {
-        var ckyCode = window.event ? ev.keyCode : ev.which;
-        var i = 0;
-
-        if (144) {
-            ev.preventDefault
-        };
-        document.title = ckyCode + ',' + data[ckyCode];
-
-        for (i = 0; i < dataSys.length; i++) {
-            if (dataSys[i] == ckyCode) {
-                return
-            }
-        }
-
-        aKLi[dataBg[ckyCode]].style.background = '#09f';
-
-        var oPP = new Audio();
-        oPP.src = audioM + data[ckyCode] + '.wav';
-        oPP.play();
-
-        if (ev.ctrlKey && ckyCode == 82) {
-            window.loaction.reload(true);
-        }
-        return false;
-    };
-
-    oKbug.onclick = function () {
-        if (this.value == '可多键模式') {
-            document.onkeydown = keyOne;
-            this.value = '仅一键模式';
-        } else {
-            document.onkeydown = keyBug;
-            this.value = '可多键模式';
-        }
-    }
-
-    document.onkeyup = function (ev) {
-        is_down = false;
-        for (i = 0; i < aKLi.length; i++) {
-            aKLi[i].style.background = '#fff';
-        }
-    }
-
-}
-
-window.onload = function () {
-    EOPieno();
-}
-
 var data = {
     '主': '1排',
     '49': '1g',
@@ -338,4 +214,133 @@ var dataBg = {
     '109': '101',
     '107': '102',
     '13': '103'
+}
+
+function EOPieno() {
+    var oPianos = document.getElementById('pianos');
+    var aKLi = oPianos.getElementsByTagName('li');
+    var oKbug = document.getElementById('kBug');
+    var i = 0;
+
+    var xhr = new XMLHttpRequest();
+
+    function load(url) {
+        xhr.open("GET", url);
+        xhr.responseType = "arraybuffer";
+        xhr.onload = function () {
+            if(this.status == 200 || this.status == 304){
+                console.log(this.responseText);
+            }
+        }
+        xhr.send();
+    }
+
+    var i;
+    var audioM = 'pianoaudio/';
+    for (i of Object.values(data)) {
+        // console.log(i)
+        // console.log(audioM + i + '.wav')
+        load(audioM + i + '.wav');
+        // console.log(audioM + i + '.wav')
+    }
+
+    for (i = 0; i < aKLi.length; i++) {
+        aKLi[i].onmousedown = function () {
+            var oPP = new Audio();
+            if (this.getAttribute('n') != "") {
+                oPP.src = audioM + this.getAttribute('n').substring(1) + '.wav';
+            } else {
+                return;
+            }
+            oPP.play();
+        }
+    }
+
+    function keyBug(ev) {
+        var ckyCode = window.event ? ev.keyCode : ev.which;
+
+        var oPP = new Audio();
+        oPP.src = audioM + data[ckyCode] + '.wav';
+        oPP.play();
+
+        if (144) {
+            ev.preventDefault
+        };
+        document.title = ckyCode + ',' + data[ckyCode];
+
+        if (ckyCode == 27 || ckyCode == 192 || ckyCode == 9) {
+            return;
+        }
+        aKLi[dataBg[ckyCode]].style.background = '#09f';
+    }
+
+    function keyOne(ev) {
+        var ckyCode = window.event ? ev.keyCode : ev.which;
+        if (!is_down) {
+            var oPP = new Audio();
+            oPP.src = audioM + data[ckyCode] + '.wav';
+            oPP.play();
+
+            if (144) {
+                ev.preventDefault
+            };
+            document.title = ckyCode + ',' + data[ckyCode];
+
+            if (ckyCode == 27 || ckyCode == 192 || ckyCode == 9) {
+                return;
+            }
+            aKLi[dataBg[ckyCode]].style.background = '#09f';
+        }
+        is_down = true;
+    }
+
+    var is_down = false;
+    document.onkeydown = function (ev) {
+        var ckyCode = window.event ? ev.keyCode : ev.which;
+        var i = 0;
+
+        if (144) {
+            ev.preventDefault
+        };
+        document.title = ckyCode + ',' + data[ckyCode];
+
+        for (i = 0; i < dataSys.length; i++) {
+            if (dataSys[i] == ckyCode) {
+                return
+            }
+        }
+
+        aKLi[dataBg[ckyCode]].style.background = '#09f';
+
+        var oPP = new Audio();
+        oPP.src = audioM + data[ckyCode] + '.wav';
+        oPP.play();
+
+        if (ev.ctrlKey && ckyCode == 82) {
+            window.loaction.reload(true);
+        }
+        return false;
+    };
+
+    oKbug.onclick = function () {
+        if (this.value == '可多键模式') {
+            document.onkeydown = keyOne;
+            this.value = '仅一键模式';
+        } else {
+            document.onkeydown = keyBug;
+            this.value = '可多键模式';
+        }
+    }
+
+    document.onkeyup = function (ev) {
+        is_down = false;
+        for (i = 0; i < aKLi.length; i++) {
+            aKLi[i].style.background = '#fff';
+        }
+    }
+
+}
+
+window.onload = function () {
+    EOPieno();
 }
