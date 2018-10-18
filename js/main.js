@@ -237,11 +237,20 @@ function EOPieno() {
         oAudioName.innerText = url;
 
         if (!isPlay) {
+            
+
+            var _this = this;
             this.audio.onloadedmetadata = function () {
-                console.log(this.buffered.end(0), this.duration);
-                if (this.buffered.end(0) === this.duration) {
-                    oPre.innerText++;
+                var __this = this;
+                function isClone () {
+                    console.log(__this.buffered.end(0), __this.duration);
+                    if (__this.buffered.end(0) === __this.duration) {
+                        oPre.innerText++;
+                    } else {
+                        setTimeout(isClone, 500);
+                    }
                 }
+                isClone();
             }
         } else {
             this.audio.play();
