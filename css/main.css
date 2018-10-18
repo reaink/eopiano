@@ -19,7 +19,15 @@ body {
 }
 
 #pianos header {
-    text-align: left
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#pianos header .fr {
+    color: #C81D23;
+    padding-right: 10px;
 }
 
 #pianos header .title {
