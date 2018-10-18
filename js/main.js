@@ -238,7 +238,10 @@ function EOPieno() {
 
         if (!isPlay) {
             this.audio.onloadedmetadata = function () {
-                oPre.innerText++;
+                console.log(this.buffered.end(0), this.duration);
+                if (this.buffered.end(0) === this.duration) {
+                    oPre.innerText++;
+                }
             }
         } else {
             this.audio.play();
@@ -258,7 +261,6 @@ function EOPieno() {
     if (/http/.exec(window.location.href)) {
         
         for (i of Object.values(data)) {
-            oPianoAudio.muted = true;
             new loadOrPlay(audioM + i + '.wav');
         }
         if (oPreAll.innerText !== 0 && oPre.innerText === oPreAll.innerText) {
