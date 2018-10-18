@@ -237,7 +237,7 @@ function EOPieno() {
         oAudioName.innerText = url;
 
         if (!isPlay) {
-            if (this.audio.paused) {
+            this.audio.onloadedmetadata = function () {
                 oPre.innerText++;
             }
         } else {
