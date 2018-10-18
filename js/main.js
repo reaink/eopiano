@@ -252,7 +252,7 @@ function EOPieno() {
         for (i of Object.values(data)) {
             load(audioM + i + '.wav');
         }
-        if ((oPre.innerText === oPreAll.innerText) !== 0) {
+        if ((oPre.innerText === oPreAll.innerText) && oPreAll.innerText !== 0) {
             oCache.innerText = '缓存完毕';
             setTimeout(function () {
                 oCache.style.display = 'none';
