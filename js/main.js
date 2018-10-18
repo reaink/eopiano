@@ -282,7 +282,7 @@ function EOPieno() {
     function keyBug(ev) {
         var ckyCode = window.event ? ev.keyCode : ev.which;
 
-        new loadOrPlay(audioM + data[ckyCode] + '.wav')
+        new loadOrPlay(audioM + data[ckyCode] + '.wav', true)
 
         if (144) {
             ev.preventDefault
@@ -297,7 +297,7 @@ function EOPieno() {
     function keyOne(ev) {
         var ckyCode = window.event ? ev.keyCode : ev.which;
         if (!is_down) {
-            new loadOrPlay(audioM + data[ckyCode] + '.wav')
+            new loadOrPlay(audioM + data[ckyCode] + '.wav', true)
 
             if (144) {
                 ev.preventDefault
@@ -328,7 +328,7 @@ function EOPieno() {
 
         aKLi[dataBg[ckyCode]].style.background = '#09f';
 
-        new loadOrPlay(audioM + data[ckyCode] + '.wav')
+        new loadOrPlay(audioM + data[ckyCode] + '.wav', true)
 
         if (ev.ctrlKey && ckyCode == 82) {
             window.loaction.reload(true);
