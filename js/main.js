@@ -223,29 +223,26 @@ function EOPieno() {
 
     oPreAll.innerText = Object.keys(data).length;
 
-    function load(url) {
-        oPianoAudio.src = url;
-        oPianoAudio.setAttribute('controls', 'controls');
-        oPianoAudio.load();
-        oAudioName.innerText = url;
-        // console.log(oPianoAudio, url)
-        // console.log(oPianoAudio.paused);
-        
-        if (oPianoAudio.paused) {
-            oPre.innerText++;
-        }
-    }
-
-    function play(url) {
+    function loadOrPlay(url, isPlay) {
         var oPianoAudio = document.getElementById('piano-audio');
         this.audio = document.createElement('audio');
-        this.audio.innerHTML = '您的浏览器不支持音频功能';
-        this.audio.src = url;
         this.audio.id = 'piano-audio';
         this.audio.setAttribute('controls', 'controls');
+        this.audio.setAttribute('preload', '');
+        this.audio.innerHTML = '您的浏览器不支持音频功能';
+        !isPlay && this.audio.load();
+        this.audio.src = url;
+
         oPianoAudio.parentNode.replaceChild(this.audio, oPianoAudio)
         oAudioName.innerText = url;
-        this.audio.play();
+
+        if (!isPlay) {
+            if (this.audio.paused) {
+                oPre.innerText++;
+            }
+        } else {
+            this.audio.play();
+        }
     }
 
     (function() {
@@ -259,9 +256,10 @@ function EOPieno() {
     var i;
     var audioM = 'pianoaudio/';
     if (/http/.exec(window.location.href)) {
+        
         for (i of Object.values(data)) {
             oPianoAudio.muted = true;
-            new load(audioM + i + '.wav');
+            new loadOrPlay(audioM + i + '.wav');
         }
         if (oPreAll.innerText !== 0 && oPre.innerText === oPreAll.innerText) {
             oVol.value = oPianoAudio.volume = 1;
@@ -274,7 +272,7 @@ function EOPieno() {
     for (i = 0; i < aKLi.length; i++) {
         aKLi[i].onmousedown = function () {
             if (this.getAttribute('n') != "") {
-                play(audioM + this.getAttribute('n').substring(1) + '.wav')
+                new loadOrPlay(audioM + this.getAttribute('n').substring(1) + '.wav', true)
             } else {
                 return;
             }
@@ -284,7 +282,7 @@ function EOPieno() {
     function keyBug(ev) {
         var ckyCode = window.event ? ev.keyCode : ev.which;
 
-        play(audioM + data[ckyCode] + '.wav')
+        new loadOrPlay(audioM + data[ckyCode] + '.wav')
 
         if (144) {
             ev.preventDefault
@@ -299,7 +297,7 @@ function EOPieno() {
     function keyOne(ev) {
         var ckyCode = window.event ? ev.keyCode : ev.which;
         if (!is_down) {
-            play(audioM + data[ckyCode] + '.wav')
+            new loadOrPlay(audioM + data[ckyCode] + '.wav')
 
             if (144) {
                 ev.preventDefault
@@ -330,7 +328,7 @@ function EOPieno() {
 
         aKLi[dataBg[ckyCode]].style.background = '#09f';
 
-        play(audioM + data[ckyCode] + '.wav')
+        new loadOrPlay(audioM + data[ckyCode] + '.wav')
 
         if (ev.ctrlKey && ckyCode == 82) {
             window.loaction.reload(true);
