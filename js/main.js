@@ -217,46 +217,49 @@ function EOPieno() {
     var oPre = document.getElementById('pre');
     var oPreAll = document.getElementById('pre-all');
     var oVol = document.getElementById('vol');
-    var oCache = document.getElementById('cache');
+    var oPianoAudio = document.getElementById('piano-audio');
+    var oAudioName = document.getElementById('audio-name');
     var i = 0;
-    var a = new Audio();
-
-    var xhr = new XMLHttpRequest();
 
     oPreAll.innerText = Object.keys(data).length;
 
     function load(url) {
-        var a = new Audio();
-        a.src = url;
-        a.load();
-        oPre.innerText++;
+        oPianoAudio.src = url;
+        oPianoAudio.setAttribute('controls', 'controls');
+        oPianoAudio.load();
+        oAudioName.innerText = url;
+        // console.log(oPianoAudio, url)
+        // console.log(oPianoAudio.paused);
+        
+        if (oPianoAudio.paused) {
+            oPre.innerText++;
+        }
     }
 
     function play(url) {
-        var a = new Audio();
-        a.src = url;
-        a.play();
+        oPianoAudio.src = url;
+        oAudioName.innerText = url;
+        oPianoAudio.play();
     }
 
     (function() {
-        oVol.value = a.volume;
+        oVol.value = oPianoAudio.volume;
         oVol.step = 0.1;
         oVol.onchange = function () {
-            a.volume = +this.value;
+            oPianoAudio.volume = +this.value;
         }
-    })(oVol, a);
+    })(oVol, oPianoAudio);
 
     var i;
     var audioM = 'pianoaudio/';
     if (/http/.exec(window.location.href)) {
         for (i of Object.values(data)) {
+            oPianoAudio.muted = true;
             load(audioM + i + '.wav');
         }
-        if ((oPre.innerText === oPreAll.innerText) && oPreAll.innerText !== 0) {
-            oCache.innerText = '缓存完毕';
-            setTimeout(function () {
-                oCache.style.display = 'none';
-            }, 1000)
+        if (oPreAll.innerText !== 0 && oPre.innerText === oPreAll.innerText) {
+            oVol.value = oPianoAudio.volume = 1;
+            // oCache.innerText = '缓存完毕';
         }
     } else {
         console.log('本地项目，跳过XMLHttpRequest缓存');
@@ -275,14 +278,11 @@ function EOPieno() {
     function keyBug(ev) {
         var ckyCode = window.event ? ev.keyCode : ev.which;
 
-        var oPP = new Audio();
-        oPP.src = audioM + data[ckyCode] + '.wav';
-        oPP.play();
+        play(audioM + data[ckyCode] + '.wav')
 
         if (144) {
             ev.preventDefault
         };
-        document.title = ckyCode + ',' + data[ckyCode];
 
         if (ckyCode == 27 || ckyCode == 192 || ckyCode == 9) {
             return;
@@ -293,14 +293,11 @@ function EOPieno() {
     function keyOne(ev) {
         var ckyCode = window.event ? ev.keyCode : ev.which;
         if (!is_down) {
-            var oPP = new Audio();
-            oPP.src = audioM + data[ckyCode] + '.wav';
-            oPP.play();
+            play(audioM + data[ckyCode] + '.wav')
 
             if (144) {
                 ev.preventDefault
             };
-            document.title = ckyCode + ',' + data[ckyCode];
 
             if (ckyCode == 27 || ckyCode == 192 || ckyCode == 9) {
                 return;
@@ -318,7 +315,6 @@ function EOPieno() {
         if (144) {
             ev.preventDefault
         };
-        document.title = ckyCode + ',' + data[ckyCode];
 
         for (i = 0; i < dataSys.length; i++) {
             if (dataSys[i] == ckyCode) {
@@ -328,9 +324,7 @@ function EOPieno() {
 
         aKLi[dataBg[ckyCode]].style.background = '#09f';
 
-        var oPP = new Audio();
-        oPP.src = audioM + data[ckyCode] + '.wav';
-        oPP.play();
+        play(audioM + data[ckyCode] + '.wav')
 
         if (ev.ctrlKey && ckyCode == 82) {
             window.loaction.reload(true);

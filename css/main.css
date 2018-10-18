@@ -37,7 +37,7 @@ body {
     border-radius: 3px;
     text-align: center;
     font-size: 14px;
-    transition: all .3s ease-in-out;
+    transition: all .1s ease-out;
 }
 
 #pianos .left {
