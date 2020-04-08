@@ -207,6 +207,10 @@ body {
     animation: hiddenToHidden 1s ease-out;
 }
 
+#audio-name, #piano-audio {
+    display: none;
+}
+
 .hidden:hover {
     opacity: 1;
     transition: all 0.5s;

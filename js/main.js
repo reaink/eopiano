@@ -1,3 +1,4 @@
+// 键盘对应音高KeyCode
 var data = {
     '49': '1g',
     '50': '2g',
@@ -75,6 +76,7 @@ var data = {
     '96': '5d',
     '110': '6d'
 }
+// 屏蔽键位KeyCode
 var dataSys = [
     27,
     192,
@@ -102,6 +104,7 @@ var dataSys = [
     145,
     19,
 ]
+// 可设置背景色KeyCode
 var dataBg = {
     '系': '',
     '27': '-1',
@@ -240,11 +243,10 @@ function EOPieno() {
             this.audio.onloadedmetadata = function () {
                 var _this = this;
                 function isClone () {
-                    console.log(_this.buffered.end(0), _this.duration);
                     if (_this.buffered.end(0) === _this.duration) {
                         oPre.innerText++;
                     } else {
-                        setTimeout(isClone, 50);
+                        setTimeout(isClone, 60);
                     }
                 }
                 isClone();
@@ -262,13 +264,17 @@ function EOPieno() {
         }
     })(oVol, oPianoAudio);
 
-    var i;
     var audioM = 'pianoaudio/';
     if (/http/.exec(window.location.href)) {
-        
-        for (i of Object.values(data)) {
-            new loadOrPlay(audioM + i + '.wav');
-        }
+        let i = 0
+        const audioNames = Object.values(data)
+        const loadTimer = setInterval(() => {
+            new loadOrPlay(audioM + audioNames[i] + '.wav');
+            i ++
+            if (i >= audioNames.length) {
+                clearInterval(loadTimer)
+            }
+        }, 60)
         if (oPreAll.innerText !== 0 && oPre.innerText === oPreAll.innerText) {
             oVol.value = oPianoAudio.volume = 1;
             // oCache.innerText = '缓存完毕';
@@ -277,15 +283,17 @@ function EOPieno() {
         console.log('本地项目，跳过XMLHttpRequest缓存');
     }
 
-    for (i = 0; i < aKLi.length; i++) {
-        aKLi[i].onmousedown = function () {
-            if (this.getAttribute('n') != "") {
-                new loadOrPlay(audioM + this.getAttribute('n').substring(1) + '.wav', true)
-            } else {
-                return;
+    (function setKeyDown () {
+        for (let i = 0; i < aKLi.length; i++) {
+            aKLi[i].onmousedown = function () {
+                if (this.getAttribute('n') != "") {
+                    new loadOrPlay(audioM + this.getAttribute('n').substring(1) + '.wav', true)
+                } else {
+                    return;
+                }
             }
         }
-    }
+    })()
 
     function keyBug(ev) {
         var ckyCode = window.event ? ev.keyCode : ev.which;
